@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!--#第四步==>4.3 配置xml映射文件-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wsh.dao.developer.DevUserDao">
+
+<!--    登录-->
+<select id="findByDevName"  resultType="DevUser" parameterType="String">
+    select * from  dev_user where devCode=#{devCode};
+</select>
+
+    <select id="statusList" resultType="DataDictionary">
+        select * from data_dictionary where typeName = "APP状态";
+    </select>
+    <select id="flatFormList" resultType="DataDictionary">
+        select * from data_dictionary where typeName = "所属平台";
+    </select>
+
+    <select id="categoryLevel1List" resultType="AppCategory">
+         select * from app_category where categoryCode like "All%";
+    </select>
+
+    <select id="categoryLevel2List" resultType="AppCategory">
+        select categoryName from app_category where parentId != 'null' order by parentId;
+    </select>
+
+    <select id="categoryLevel3List" resultType="AppCategory">
+        select categoryName from app_category order by parentId;
+    </select>
+</mapper>
